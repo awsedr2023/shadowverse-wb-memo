@@ -10,9 +10,9 @@
 1. [README.md](README.md)
 2. この `AGENTS.md`
 3. 作業対象のGitHub Issueと関連する既存コード・文書
-4. 作業フローが関係する場合は [CONTRIBUTING.md](CONTRIBUTING.md)
+4. 作業フローが関係する場合は [DEVELOPMENT.md](DEVELOPMENT.md)
 
-`CONTRIBUTING.md` は人間とAIで共有する作業フローの正本である。このファイルは、
+`DEVELOPMENT.md` は人間とAIで共有する作業フローの正本である。このファイルは、
 AIの権限、実行モード、外部操作の境界だけを追加で定義する。
 
 ## ソース管理と作業管理

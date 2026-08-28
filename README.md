@@ -9,7 +9,7 @@ Webアプリです。
 
 ## 開発運用
 
-- 新規開発者は、まず [CONTRIBUTING.md](CONTRIBUTING.md) を読んでください。
+- 開発フローは [DEVELOPMENT.md](DEVELOPMENT.md) にあります。
 - AIエージェント向けの作業契約は [AGENTS.md](AGENTS.md) にあります。
 - 実装作業は原則としてGitHub Issueとプルリクエストへ紐付け、進捗は
   GitHub Projectの `Status` を正本とします。
