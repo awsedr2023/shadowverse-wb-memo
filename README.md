@@ -9,9 +9,10 @@ Webアプリです。
 
 ## 開発運用
 
-- 作業方針とAIエージェント向けの指示は [AGENTS.md](AGENTS.md) を参照してください。
-- 実装作業は、原則としてGitHub Issueとプルリクエストへ紐付けます。
-- GitHub Projectsを利用する場合、作業の進捗はProjectの `Status` を正本とします。
+- 新規開発者は、まず [CONTRIBUTING.md](CONTRIBUTING.md) を読んでください。
+- AIエージェント向けの作業契約は [AGENTS.md](AGENTS.md) にあります。
+- 実装作業は原則としてGitHub Issueとプルリクエストへ紐付け、進捗は
+  GitHub Projectの `Status` を正本とします。
 
 ## ライセンス
 
