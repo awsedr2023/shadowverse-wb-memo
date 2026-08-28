@@ -1,0 +1,28 @@
+name: 不具合報告
+description: 再現可能な不具合を記録する
+title: "[Bug]: "
+labels:
+  - "type:bug"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 問題
+      description: 実際の挙動と期待する挙動を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 再現手順
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境・補足
+      description: ブラウザ、OS、ログ、スクリーンショットなどを記載してください。

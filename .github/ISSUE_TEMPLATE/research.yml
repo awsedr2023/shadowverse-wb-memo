@@ -1,0 +1,27 @@
+name: 調査・要件検討
+description: 実装前の不確実性を解消する調査や設計検討を記録する
+title: "[Research]: "
+labels:
+  - "type:research"
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: 調査する問い
+      placeholder: 何を判断・確認する必要がありますか？
+    validations:
+      required: true
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: 成果物・判断基準
+      placeholder: 調査の完了時に何が分かればよいですか？
+    validations:
+      required: true
+  - type: textarea
+    id: non-goals
+    attributes:
+      label: 対象外
+      placeholder: この調査で決めないこと、実装しないことを記載してください。
+    validations:
+      required: true

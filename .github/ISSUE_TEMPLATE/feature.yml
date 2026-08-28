@@ -1,0 +1,43 @@
+name: 機能提案
+description: ユーザー価値を追加・変更する作業を提案する
+title: "[Feature]: "
+labels:
+  - "type:feature"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        実装前に、目的・受け入れ条件・対象外を明確にしてください。
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 目的・解決したい問題
+      placeholder: 何を、なぜ改善したいですか？
+    validations:
+      required: true
+  - type: textarea
+    id: user-story
+    attributes:
+      label: ユーザーストーリー
+      placeholder: "As a ... I want ... So that ..."
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: 受け入れ条件
+      description: 確認可能な完了条件を箇条書きで記載してください。
+      placeholder: |
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: non-goals
+    attributes:
+      label: 対象外
+      description: このIssueでは扱わない内容を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 制約・補足
+      description: 関連Issue、設計上の制約、参考資料などを記載してください。
