@@ -11,9 +11,14 @@
 2. この `AGENTS.md`
 3. 作業対象のGitHub Issueと関連する既存コード・文書
 4. 作業フローが関係する場合は [DEVELOPMENT.md](DEVELOPMENT.md)
+5. Issue作成またはIssueからPRまでの作業では、対応する `skills/` 内のSkill
 
 `DEVELOPMENT.md` は人間とAIで共有する作業フローの正本である。このファイルは、
 AIの権限、実行モード、外部操作の境界だけを追加で定義する。
+
+`skills/` には、このリポジトリで再利用するAI作業手順を置く。現在は
+`sdwv-issue-facilitation`（対話的なIssue化）と`sdwv-issue-delivery`（IssueからPRまでの遂行）を
+利用する。
 
 ## ソース管理と作業管理
 
