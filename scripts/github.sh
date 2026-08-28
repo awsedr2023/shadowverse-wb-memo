@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly PROJECT_CONFIG=".github/project-config.json"
-
 fail() {
   printf 'error: %s\n' "$*" >&2
   exit 1
@@ -45,12 +43,10 @@ require_file() {
 }
 
 project_metadata() {
-  require_file project-config "$PROJECT_CONFIG"
-  local owner number query result
-  owner="$(jq -r '.project_owner // empty' "$PROJECT_CONFIG")"
-  number="$(jq -r '.project_number // empty' "$PROJECT_CONFIG")"
-  require_nonempty project_owner "$owner"
+  local number="$1" owner repo query result
   [[ "$number" =~ ^[0-9]+$ ]] || fail "project_number は正の整数にしてください。"
+  repo="$(repository)"
+  owner="${repo%%/*}"
 
   read -r -d '' query <<'GRAPHQL' || true
 query($owner: String!, $number: Int!) {
@@ -70,13 +66,13 @@ GRAPHQL
   result="$(gh api graphql -f query="$query" -f "owner=$owner" -F "number=$number")" || \
     fail "GitHub Projectの設定を取得できませんでした。gh auth status とネットワーク接続を確認してください。"
   jq -e '.data.user.projectV2.id and .data.user.projectV2.field.id' >/dev/null <<< "$result" || \
-    fail "ProjectまたはStatusフィールドを解決できません。.github/project-config.json を確認してください。"
+    fail "ProjectまたはStatusフィールドを解決できません。PROJECT_NUMBER を確認してください。"
   printf '%s\n' "$result"
 }
 
 check_config() {
-  local metadata
-  metadata="$(project_metadata)"
+  local number="$1" metadata
+  metadata="$(project_metadata "$number")"
   printf 'GitHub Project設定を確認しました。\n'
   jq -r '"Project: \(.data.user.projectV2.id)\nStatus: \([.data.user.projectV2.field.options[].name] | join(", "))"' <<< "$metadata"
 }
@@ -137,13 +133,13 @@ create_pr() {
 }
 
 set_project_status() {
-  local issue_number="$1" status="$2" confirmation="$3"
+  local issue_number="$1" status="$2" confirmation="$3" project_number="$4"
   local repo issue_id option_id item_id query mutation result metadata project_id status_field_id
   require_nonempty ISSUE_NUMBER "$issue_number"
   require_nonempty STATUS "$status"
   require_confirmation "$confirmation"
   [[ "$issue_number" =~ ^[0-9]+$ ]] || fail "ISSUE_NUMBER は正の整数にしてください。"
-  metadata="$(project_metadata)"
+  metadata="$(project_metadata "$project_number")"
   project_id="$(jq -r '.data.user.projectV2.id' <<< "$metadata")"
   status_field_id="$(jq -r '.data.user.projectV2.field.id' <<< "$metadata")"
   option_id="$(jq -r --arg status "$status" '.data.user.projectV2.field.options[] | select(.name == $status) | .id' <<< "$metadata")"
@@ -199,10 +195,10 @@ main() {
 
   local command="${1:-}"
   case "$command" in
-    check-config) check_config ;;
+    check-config) check_config "${2:-}" ;;
     issue-create) create_issue "${2:-}" "${3:-}" "${4:-}" "${5:-}" "${6:-}" ;;
     pr-create) create_pr "${2:-}" "${3:-}" "${4:-}" "${5:-}" "${6:-}" ;;
-    project-status) set_project_status "${2:-}" "${3:-}" "${4:-}" ;;
+    project-status) set_project_status "${2:-}" "${3:-}" "${4:-}" "${5:-}" ;;
     *) fail "使い方: $0 {check-config|issue-create|pr-create|project-status}" ;;
   esac
 }
